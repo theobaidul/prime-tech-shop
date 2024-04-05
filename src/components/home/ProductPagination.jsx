@@ -32,16 +32,27 @@ export default function ProductPagination({ count }) {
       >
         Prev
       </button>
-      {totalPage?.map(({ id }) => (
-        <button
-          key={id}
-          type="button"
-          className={`btn border border-black bg-transparent px-2 py-1 text-black ${filterPage === id ? 'bg-black text-white' : ''}`}
-          onClick={() => handlePage(id)}
-        >
-          {id}
-        </button>
-      ))}
+      {totalPage?.map(({ id }) =>
+        filterPage === id ? (
+          <button
+            key={id}
+            type="button"
+            className="btn border border-black bg-black px-2 py-1 text-white"
+            onClick={() => handlePage(id)}
+          >
+            {id}
+          </button>
+        ) : (
+          <button
+            key={id}
+            type="button"
+            className="btn border border-black bg-transparent px-2 py-1 text-black"
+            onClick={() => handlePage(id)}
+          >
+            {id}
+          </button>
+        )
+      )}
       <button
         type="button"
         className="btn border border-black bg-transparent px-2 py-1 text-black"
