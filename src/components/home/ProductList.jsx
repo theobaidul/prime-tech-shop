@@ -1,6 +1,7 @@
 import { useGetProductsQuery } from '@/redux/features/products/productsApi';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import ProductListLoader from '../ui/ProductListLoader';
 import ProductItem from './ProductItem';
 import ProductPagination from './ProductPagination';
 import ProductPerPage from './ProductPerPage';
@@ -34,12 +35,12 @@ export default function ProductList() {
       </div>
     );
   } else {
-    content = <div>Loading...</div>;
+    content = <ProductListLoader />;
   }
 
   return (
     <div className="mb-6 flex-1 space-y-6">
-      <h1 className="text-2xl font-bold">Shop</h1>
+      <h1 className="text-2xl font-bold">Products</h1>
       <p>
         Showing {page * limit - limit + 1}-{page * limit} of {total} results
       </p>

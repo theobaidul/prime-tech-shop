@@ -12,8 +12,17 @@ const productsApi = apiSlice.injectEndpoints({
         url: `/products/${id}`,
       }),
     }),
+    searchProducts: builder.query({
+      query: (searchTerm) => ({
+        url: `/products/search?q=${searchTerm}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductQuery } = productsApi;
+export const {
+  useGetProductsQuery,
+  useGetProductQuery,
+  useLazySearchProductsQuery,
+} = productsApi;
 export default productsApi;

@@ -4,16 +4,44 @@ import SingleProductLoader from '@/components/ui/SingleProductLoader';
 import { addToCart } from '@/redux/features/cart/cartSlice';
 import { useGetProductQuery } from '@/redux/features/products/productsApi';
 import numberWithCommas from '@/utils/numberWithcommas';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 export default function ProductDetails() {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const params = useParams();
   const { data, isError, error } = useGetProductQuery(params.id);
-  const { title, description, price, rating, thumbnail } = data || {};
+  const { id, title, description, price, rating, thumbnail } = data || {};
+
+  const handleAddToCart = () => {
+    const findedProduct = cart?.find((item) => item?.id === id);
+    const addProduct = () => {
+      dispatch(addToCart(data));
+      toast.success(
+        <div className="flex items-center gap-2">
+          {title} added to cart{' '}
+          <Link
+            to="/cart"
+            className="cursor-pointer rounded-md border border-gray-50 bg-gray-100 px-2 py-1 hover:bg-gray-200"
+          >
+            View cart
+          </Link>
+        </div>
+      );
+    };
+    if (findedProduct) {
+      if (findedProduct?.stock !== findedProduct?.quantity) {
+        addProduct();
+      } else {
+        toast.error('Out of stock');
+      }
+    } else {
+      addProduct();
+    }
+  };
 
   let content;
-
   if (isError) {
     content = (
       <div className="container">
@@ -22,8 +50,6 @@ export default function ProductDetails() {
         </Alert>
       </div>
     );
-  } else if (!data) {
-    content = <div>No product found</div>;
   } else if (data && data?.title) {
     content = (
       <>
@@ -48,10 +74,7 @@ export default function ProductDetails() {
                     BDT {numberWithCommas(price)}
                   </span>
                   <div className="flex space-x-4">
-                    <button
-                      className="btn"
-                      onClick={() => dispatch(addToCart(data))}
-                    >
+                    <button className="btn" onClick={handleAddToCart}>
                       Add To Cart
                     </button>
                   </div>

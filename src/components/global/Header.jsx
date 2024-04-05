@@ -8,6 +8,7 @@ import {
 import { FiShoppingBag } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 export default function Header() {
   const cart = useSelector((state) => state.cart);
@@ -20,11 +21,7 @@ export default function Header() {
           <img src={logo} alt="logo" className="w-full" />
         </Link>
         <div className="flex w-full justify-between gap-10 md:w-3/5">
-          <input
-            type="search"
-            placeholder="Search products..."
-            className="w-full max-w-96 rounded-md border px-2 py-1 outline-none"
-          />
+          <SearchBar />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <div className="relative">

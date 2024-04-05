@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Stars from '../common/Stars';
-import { Button } from '../ui/button';
 export default function ProductItem({ product }) {
   const { id, title, price, rating, thumbnail } = product || {};
   const dispatch = useDispatch();
@@ -11,34 +10,28 @@ export default function ProductItem({ product }) {
 
   const handleAddToCart = () => {
     const findedProduct = cart?.find((item) => item?.id === id);
-    if (findedProduct) {
-      if (findedProduct?.stock !== findedProduct?.quantity) {
-        dispatch(addToCart(product));
-        toast.success(
-          <div className="flex items-center gap-2">
-            {title} added to cart{' '}
-            <Link to="/cart">
-              <Button size="sm" variant="outline">
-                View cart
-              </Button>
-            </Link>
-          </div>
-        );
-      } else {
-        toast.error('Out of stock');
-      }
-    } else {
+    const addProduct = () => {
       dispatch(addToCart(product));
       toast.success(
         <div className="flex items-center gap-2">
           {title} added to cart{' '}
-          <Link to="/cart">
-            <Button size="sm" variant="outline">
-              View cart
-            </Button>
+          <Link
+            to="/cart"
+            className="cursor-pointer rounded-md border border-gray-50 bg-gray-100 px-2 py-1 hover:bg-gray-200"
+          >
+            View cart
           </Link>
         </div>
       );
+    };
+    if (findedProduct) {
+      if (findedProduct?.stock !== findedProduct?.quantity) {
+        addProduct();
+      } else {
+        toast.error('Out of stock');
+      }
+    } else {
+      addProduct();
     }
   };
 
