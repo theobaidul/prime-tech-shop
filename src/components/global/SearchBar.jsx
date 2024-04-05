@@ -1,6 +1,7 @@
 import useDebounce from '@/hooks/useDebounce';
 import { useLazySearchProductsQuery } from '@/redux/features/products/productsApi';
 import { useEffect, useState } from 'react';
+import { IoSearchSharp } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
 import SearchItem from './SearchItem';
 
@@ -37,10 +38,11 @@ export default function SearchBar() {
 
   return (
     <div className="relative w-96">
+      <IoSearchSharp className="absolute left-1 top-1/2 -translate-y-1/2" />
       <input
         type="search"
         placeholder="Search products..."
-        className="w-full max-w-96 rounded-md border px-2 py-1 outline-none"
+        className="w-full max-w-96 rounded-md border px-2 py-1 pl-6 outline-none"
         value={searchTerm}
         onChange={handleSearch}
       />
