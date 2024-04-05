@@ -21,6 +21,9 @@ export default function CartItem({ product }) {
   const handleRemove = () => {
     dispatch(removeFromCart(id));
   };
+  const totalPrice = (
+    quantity * discountPrice(price, discountPercentage)
+  )?.toFixed(2);
 
   return (
     <div className="flex flex-wrap items-center gap-4 rounded bg-white p-4 shadow-sm md:flex-nowrap md:justify-between md:gap-6">
@@ -29,9 +32,7 @@ export default function CartItem({ product }) {
       </div>
       <div className="w-full md:w-1/3">
         <h2 className="mb-3 text-lg font-medium xl:text-xl">{title}</h2>
-        <p className="font-semibold">
-          ${discountPrice(price, discountPercentage)} x {quantity}
-        </p>
+        <p className="font-semibold">${totalPrice}</p>
       </div>
       <AmountButtons
         stock={stock}
@@ -40,9 +41,7 @@ export default function CartItem({ product }) {
         onDecrement={handleDecrement}
       />
       <div className="ml-auto md:ml-0">
-        <p className="text-lg font-semibold">
-          BDT {quantity * discountPrice(price, discountPercentage)}
-        </p>
+        <p className="text-lg font-semibold">${totalPrice}</p>
       </div>
       <div className="text-lg text-red-400 hover:text-red-600">
         <button onClick={handleRemove}>

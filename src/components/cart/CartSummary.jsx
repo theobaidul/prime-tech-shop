@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 export default function CartSummary() {
   const cart = useSelector((state) => state.cart);
-  const totalPrice = cart?.reduce(
-    (total, item) =>
-      total +
-      discountPrice(item?.price, item?.discountPercentage) * item?.quantity,
-    0
-  );
+  const totalPrice = cart
+    ?.reduce(
+      (total, item) =>
+        total +
+        discountPrice(item?.price, item?.discountPercentage) * item?.quantity,
+      0
+    )
+    ?.toFixed(2);
 
   return (
     <div className="mt-6 rounded bg-white p-4 shadow-sm lg:col-span-4 lg:mt-0 xl:col-span-3">
@@ -19,7 +21,7 @@ export default function CartSummary() {
       <div className="space-y-1 border-b border-gray-200 pb-3 text-gray-600">
         <div className="flex justify-between font-medium">
           <p>Subtotal</p>
-          <p>BDT {totalPrice}</p>
+          <p>${totalPrice}</p>
         </div>
         <div className="flex justify-between">
           <p>Delivery</p>
@@ -32,7 +34,7 @@ export default function CartSummary() {
       </div>
       <div className="my-3 flex justify-between font-semibold uppercase text-gray-800">
         <h4>Total</h4>
-        <h4>BDT {totalPrice}</h4>
+        <h4>${totalPrice}</h4>
       </div>
       <Link to="/checkout" className="btn block w-full rounded-md px-3">
         Process to checkout

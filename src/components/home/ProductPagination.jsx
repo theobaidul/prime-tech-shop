@@ -1,63 +1,56 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
-import { useNavigate } from 'react-router-dom';
+import { storeFilterPage } from '@/redux/features/filter/filterSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function ProductPagination({
-  currentPage,
-  limit,
-  total,
-  setPage,
-}) {
-  const navigate = useNavigate();
-  const totalPage = Math.ceil(total / limit);
-  const pageArray = Array.from({ length: totalPage }, (_, i) => ({
-    id: i + 1,
-  }));
+export default function ProductPagination() {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state?.data?.products);
+  const { page: filterPage, limit: filterLimit } = useSelector(
+    (state) => state?.filter
+  );
+
+  const totalPage = Array.from(
+    { length: Math.ceil(products?.length / filterLimit) },
+    (_, i) => ({ id: i + 1 })
+  );
+
+  const handleNext = () => {
+    dispatch(storeFilterPage(filterPage + 1));
+  };
+  const handlePrev = () => {
+    dispatch(storeFilterPage(filterPage - 1));
+  };
+  const handlePage = (id) => {
+    dispatch(storeFilterPage(id));
+  };
 
   return (
-    <Pagination className="m-0 w-fit justify-end">
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            onClick={() => {
-              setPage((prev) => (currentPage > 1 ? prev - 1 : currentPage));
-              navigate(
-                `?page=${currentPage > 1 ? currentPage - 1 : currentPage}&limit=${limit}`
-              );
-            }}
-          />
-        </PaginationItem>
-        {pageArray?.map((page) => (
-          <PaginationItem key={page?.id}>
-            <PaginationLink
-              onClick={() => {
-                setPage(page?.id);
-                navigate(`?page=${page?.id}&limit=${limit}`);
-              }}
-            >
-              {page?.id}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-        <PaginationItem>
-          <PaginationNext
-            onClick={() => {
-              setPage((prev) =>
-                currentPage < totalPage ? prev + 1 : currentPage
-              );
-              navigate(
-                `?page=${currentPage < totalPage ? currentPage + 1 : currentPage}&limit=${limit}`
-              );
-            }}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+    <div className="flex gap-2">
+      <button
+        type="button"
+        className="btn border border-black bg-transparent px-2 py-1 text-black"
+        onClick={handlePrev}
+        disabled={filterPage === 1}
+      >
+        Prev
+      </button>
+      {totalPage?.map(({ id }) => (
+        <button
+          key={id}
+          type="button"
+          className="btn border border-black bg-transparent px-2 py-1 text-black"
+          onClick={() => handlePage(id)}
+        >
+          {id}
+        </button>
+      ))}
+      <button
+        type="button"
+        className="btn border border-black bg-transparent px-2 py-1 text-black"
+        onClick={handleNext}
+        disabled={filterPage === totalPage?.length}
+      >
+        Next
+      </button>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 export default function getFilteredProducts(products, filters) {
+  const fiterSearchParams = {};
   const { page, limit, categories, brands, ratings, minPrice, maxPrice } =
     filters || {};
   const filterByMinPrice = (product) => {
@@ -32,12 +33,15 @@ export default function getFilteredProducts(products, filters) {
 
   if (ratings?.length > 0) {
     filteredProducts = filteredProducts?.filter(filterByRating);
+    fiterSearchParams.ratings = ratings?.join(',');
   }
   if (categories?.length > 0) {
     filteredProducts = filteredProducts?.filter(filterByCategory);
+    fiterSearchParams.categories = categories?.join(',');
   }
   if (brands?.length > 0) {
     filteredProducts = filteredProducts?.filter(filterByBrand);
+    fiterSearchParams.brands = brands?.join(',');
   }
 
   return filteredProducts?.slice((page - 1) * limit, page * limit);
