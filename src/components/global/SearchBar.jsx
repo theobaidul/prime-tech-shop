@@ -1,30 +1,35 @@
-// import useDebounce from '@/hooks/useDebounce';
 import { useEffect, useState } from 'react';
 import { IoSearchSharp } from 'react-icons/io5';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-// import SearchItem from './SearchItem';
+import NotFound from './NotFound';
+import SearchItem from './SearchItem';
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
+  const products = useSelector((state) => state?.data?.products);
   const location = useLocation();
-  // const debounce = useDebounce();
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-    // const trimedValue = event?.target?.value?.trim();
-    // // debounce(() => searchProducts(trimedValue));
   };
+  const filterProducts = products?.filter((product) => {
+    return product?.title
+      ?.trim()
+      ?.toLowerCase()
+      .includes(searchTerm?.trim()?.toLowerCase());
+  });
 
   let content = null;
-  // if (products?.length === 0) {
-  //   content = <div>No products found</div>;
-  // } else if (products?.length > 0) {
-  //   content = products?.map((product) => (
-  //     <SearchItem key={product?.id} product={product} />
-  //   ));
-  // } else {
-  //   content = <div>Loading...</div>;
-  // }
+  if (filterProducts?.length === 0) {
+    content = <NotFound />;
+  } else if (filterProducts?.length > 0) {
+    content = filterProducts?.map((product) => (
+      <SearchItem key={product?.id} product={product} />
+    ));
+  } else {
+    content = <div>Loading...</div>;
+  }
 
   useEffect(() => {
     setSearchTerm('');

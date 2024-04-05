@@ -1,5 +1,6 @@
 import getFilteredProducts from '@/lib/getFilteredProducts';
 import { useSelector } from 'react-redux';
+import NotFound from '../global/NotFound';
 import ProductListLoader from '../ui/ProductListLoader';
 import ProductItem from './ProductItem';
 import ProductPagination from './ProductPagination';
@@ -14,7 +15,7 @@ export default function ProductList() {
 
   let content;
   if (products?.length === 0) {
-    content = <div>No products found</div>;
+    content = <NotFound />;
   } else if (products?.length > 0) {
     content = (
       <div className="mb-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">

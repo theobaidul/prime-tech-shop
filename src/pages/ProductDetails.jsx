@@ -5,21 +5,15 @@ import discountPrice from '@/utils/discountPrice';
 import numberWithCommas from '@/utils/numberWithcommas';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  // const params = useParams();
-  const data = {};
-  const {
-    id,
-    title,
-    description,
-    price,
-    discountPercentage,
-    rating,
-    thumbnail,
-  } = data || {};
+  const products = useSelector((state) => state?.data?.products);
+  const { id } = useParams();
+  const data = products?.filter((product) => product?.id === Number(id))?.[0];
+  const { title, description, price, discountPercentage, rating, thumbnail } =
+    data || {};
 
   const handleAddToCart = () => {
     const findedProduct = cart?.find((item) => item?.id === id);
