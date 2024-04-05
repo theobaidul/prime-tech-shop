@@ -1,31 +1,23 @@
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { Button } from '../ui/button';
+import Drawer from 'react-modern-drawer';
+import 'react-modern-drawer/dist/index.css';
+import { useSelector } from 'react-redux';
 
-export default function MiniCart() {
+export default function MiniCart({ isOpen, toggleDrawer }) {
+  const cartItems = useSelector((state) => state.cart);
+
   return (
-    <Drawer>
-      <DrawerTrigger>Open</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
+    <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
+      {cartItems?.map((item) => (
+        <div key={item.id} className="flex gap-2">
+          <img src={item?.thumbnail} alt="cartItem" className="size-32" />
+          <div className="flex flex-col gap-1">
+            <p>{item?.title}</p>
+            <p>
+              ${item?.quantity} X ${item?.price}
+            </p>
+          </div>
+        </div>
+      ))}
     </Drawer>
   );
 }

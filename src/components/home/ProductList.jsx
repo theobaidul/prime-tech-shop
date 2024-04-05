@@ -1,4 +1,4 @@
-import { useGetProductsQuery } from '@/redux/features/products/productsApi';
+import { useGetProductsQuery } from '@/redux/features/product/productApi';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductListLoader from '../ui/ProductListLoader';
@@ -39,7 +39,7 @@ export default function ProductList() {
   }
 
   return (
-    <div className="mb-6 flex-1 space-y-6">
+    <div className="col-span-9 mb-6 space-y-6">
       <h1 className="text-2xl font-bold">Products</h1>
       <p>
         Showing {page * limit - limit + 1}-{page * limit} of {total} results

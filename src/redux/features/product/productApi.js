@@ -1,6 +1,6 @@
 import apiSlice from '../api/apiSlice';
 
-const productsApi = apiSlice.injectEndpoints({
+const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (query) => ({
@@ -24,5 +24,5 @@ export const {
   useGetProductsQuery,
   useGetProductQuery,
   useLazySearchProductsQuery,
-} = productsApi;
-export default productsApi;
+} = productApi;
+export default productApi;

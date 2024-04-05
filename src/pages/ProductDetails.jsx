@@ -2,7 +2,7 @@ import Stars from '@/components/common/Stars';
 import Alert from '@/components/global/Alert';
 import SingleProductLoader from '@/components/ui/SingleProductLoader';
 import { addToCart } from '@/redux/features/cart/cartSlice';
-import { useGetProductQuery } from '@/redux/features/products/productsApi';
+import { useGetProductQuery } from '@/redux/features/product/productApi';
 import numberWithCommas from '@/utils/numberWithcommas';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';

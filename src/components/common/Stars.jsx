@@ -2,7 +2,7 @@ import blankStar from '@/assets/icons/blankStar.svg';
 import fullStar from '@/assets/icons/fullStar.svg';
 import halfStar from '@/assets/icons/halfStar.svg';
 
-const Stars = ({ rating }) => {
+const Stars = ({ rating, isCount = true }) => {
   const tempStars = Array.from({ length: 5 }, (_, index) => {
     const number = index + 0.5;
     return (
@@ -21,9 +21,11 @@ const Stars = ({ rating }) => {
     <div className="flex items-center">
       <div className="flex items-center space-x-2">
         {tempStars}{' '}
-        <span className="ml-3 mr-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
-          {rating}
-        </span>
+        {isCount && (
+          <span className="ml-3 mr-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
+            {rating}
+          </span>
+        )}
       </div>
     </div>
   );

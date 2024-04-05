@@ -1,5 +1,5 @@
 import useDebounce from '@/hooks/useDebounce';
-import { useLazySearchProductsQuery } from '@/redux/features/products/productsApi';
+import { useLazySearchProductsQuery } from '@/redux/features/product/productApi';
 import { useEffect, useState } from 'react';
 import { IoSearchSharp } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
