@@ -1,23 +1,29 @@
 import logo from '@/assets/logo.png';
+import { resetFilter } from '@/redux/features/filter/filterSlice';
 import { useState } from 'react';
 import { FiShoppingBag } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import MiniCart from './MiniCart';
 import SearchBar from './SearchBar';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
   const toggleDrawer = () => setIsOpen(!isOpen);
 
+  const handleResetFilter = () => {
+    dispatch(resetFilter());
+  };
+
   return (
     <header className="sticky top-0 !z-[999] bg-white py-4 shadow-sm">
       <div className="container flex items-center justify-between gap-10">
-        <Link to="/" className="block w-32">
+        <Link to="/" className="block w-32" onClick={handleResetFilter}>
           <img src={logo} alt="logo" className="w-full" />
         </Link>
         <div className="flex w-full justify-between gap-10 md:w-3/5">

@@ -26,10 +26,12 @@ export default function getFilteredProducts(products, filters) {
 
   let filteredProducts = products;
 
-  filteredProducts = filteredProducts
-    ?.filter(filterByMinPrice)
-    ?.filter(filterByMaxPrice);
-
+  if (maxPrice !== null) {
+    filteredProducts = filteredProducts?.filter(filterByMaxPrice);
+  }
+  if (minPrice !== null) {
+    filteredProducts = filteredProducts?.filter(filterByMinPrice);
+  }
   if (ratings?.length > 0) {
     filteredProducts = filteredProducts?.filter(filterByRating);
   }

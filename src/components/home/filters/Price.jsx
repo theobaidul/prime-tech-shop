@@ -20,7 +20,7 @@ export default function Price() {
       <RangeSlider
         min={minPrice}
         max={maxPrice}
-        value={[filterMinPrice, filterMaxPrice]}
+        value={[filterMinPrice || minPrice, filterMaxPrice || maxPrice]}
         onInput={(currentValue) => {
           dispatch(storeFilterMinPrice(currentValue[0]));
           dispatch(storeFilterMaxPrice(currentValue[1]));
@@ -28,7 +28,7 @@ export default function Price() {
         }}
       />
       <p>
-        Price: ${filterMinPrice} - ${filterMaxPrice}
+        Price: ${filterMinPrice || minPrice} - ${filterMaxPrice || maxPrice}
       </p>
     </div>
   );

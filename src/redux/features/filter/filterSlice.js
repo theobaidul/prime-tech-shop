@@ -6,8 +6,8 @@ const initialState = {
   categories: [],
   brands: [],
   ratings: [],
-  minPrice: 0,
-  maxPrice: 0,
+  minPrice: null,
+  maxPrice: null,
 };
 
 const filterSlice = createSlice({
@@ -55,6 +55,9 @@ const filterSlice = createSlice({
     storeFilterMaxPrice(state, action) {
       state.maxPrice = action.payload;
     },
+    resetFilter() {
+      return initialState;
+    },
   },
 });
 
@@ -67,4 +70,5 @@ export const {
   storeFilterMinPrice,
   storeFilterPage,
   storeFilterRatings,
+  resetFilter,
 } = filterSlice.actions;
