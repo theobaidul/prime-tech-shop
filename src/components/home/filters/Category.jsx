@@ -1,12 +1,8 @@
-import { useGetCategoryQuery } from '@/redux/features/category/categoryApi';
-
 export default function Category() {
-  const { data, isError, error } = useGetCategoryQuery();
+  const data = [];
 
   let content;
-  if (isError) {
-    content = <div>{error?.data?.message}</div>;
-  } else if (data?.length === 0) {
+  if (data?.length === 0) {
     content = <div>No category found</div>;
   } else if (data?.length > 0) {
     content = data?.map((item) => (

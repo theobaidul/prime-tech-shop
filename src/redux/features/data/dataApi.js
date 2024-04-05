@@ -1,15 +1,19 @@
 import apiSlice from '../api/apiSlice';
 import {
+  storeFilterMaxPrice,
+  storeFilterMinPrice,
+} from '../filter/filterSlice';
+import {
   storeBrands,
   storeCategories,
   storeMaxPrice,
   storeMinPrice,
   storeProducts,
-} from './productSlice';
+} from './dataSlice';
 
-const productApi = apiSlice.injectEndpoints({
+const dataApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query({
+    getData: builder.query({
       query: () => ({
         url: '/products?skip=0&limit=100',
       }),
@@ -35,27 +39,15 @@ const productApi = apiSlice.injectEndpoints({
           dispatch(storeBrands([...brands]));
           dispatch(storeMinPrice(minPrice));
           dispatch(storeMaxPrice(maxPrice));
+          dispatch(storeFilterMinPrice(minPrice));
+          dispatch(storeFilterMaxPrice(maxPrice));
         } catch (error) {
           //
         }
       },
     }),
-    getProduct: builder.query({
-      query: (id) => ({
-        url: `/products/${id}`,
-      }),
-    }),
-    searchProducts: builder.query({
-      query: (searchTerm) => ({
-        url: `/products/search?q=${searchTerm}`,
-      }),
-    }),
   }),
 });
 
-export const {
-  useGetProductsQuery,
-  useGetProductQuery,
-  useLazySearchProductsQuery,
-} = productApi;
-export default productApi;
+export const { useGetDataQuery } = dataApi;
+export default dataApi;

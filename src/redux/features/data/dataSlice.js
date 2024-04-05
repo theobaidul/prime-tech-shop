@@ -8,8 +8,8 @@ const initialState = {
   maxPrice: 0,
 };
 
-const productSlice = createSlice({
-  name: 'product',
+const dataSlice = createSlice({
+  name: 'data',
   initialState,
   reducers: {
     storeProducts: (state, action) => {
@@ -30,11 +30,11 @@ const productSlice = createSlice({
   },
 });
 
-export default productSlice.reducer;
+export default dataSlice.reducer;
 export const {
   storeBrands,
   storeCategories,
   storeProducts,
   storeMaxPrice,
   storeMinPrice,
-} = productSlice.actions;
+} = dataSlice.actions;

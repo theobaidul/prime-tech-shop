@@ -1,18 +1,16 @@
 import Stars from '@/components/common/Stars';
-import Alert from '@/components/global/Alert';
 import SingleProductLoader from '@/components/ui/SingleProductLoader';
 import { addToCart } from '@/redux/features/cart/cartSlice';
-import { useGetProductQuery } from '@/redux/features/product/productApi';
 import discountPrice from '@/utils/discountPrice';
 import numberWithCommas from '@/utils/numberWithcommas';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const params = useParams();
-  const { data, isError, error } = useGetProductQuery(params.id);
+  // const params = useParams();
+  const data = {};
   const {
     id,
     title,
@@ -51,15 +49,7 @@ export default function ProductDetails() {
   };
 
   let content;
-  if (isError) {
-    content = (
-      <div className="container">
-        <Alert type="danger">
-          {error?.data?.message || 'Something went wrong'}
-        </Alert>
-      </div>
-    );
-  } else if (data && data?.title) {
+  if (data && data?.title) {
     content = (
       <>
         <section className="overflow-hidden bg-white text-gray-700">

@@ -1,36 +1,30 @@
-import useDebounce from '@/hooks/useDebounce';
-import { useLazySearchProductsQuery } from '@/redux/features/product/productApi';
+// import useDebounce from '@/hooks/useDebounce';
 import { useEffect, useState } from 'react';
 import { IoSearchSharp } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
-import SearchItem from './SearchItem';
+// import SearchItem from './SearchItem';
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
-  const debounce = useDebounce();
-  const [searchProducts, { data, isError, error }] =
-    useLazySearchProductsQuery();
-  const { products } = data || {};
+  // const debounce = useDebounce();
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-    const trimedValue = event?.target?.value?.trim();
-    debounce(() => searchProducts(trimedValue));
+    // const trimedValue = event?.target?.value?.trim();
+    // // debounce(() => searchProducts(trimedValue));
   };
 
-  let content;
-  if (isError) {
-    content = <div>{error?.data?.message}</div>;
-  } else if (products?.length === 0) {
-    content = <div>No products found</div>;
-  } else if (products?.length > 0) {
-    content = products?.map((product) => (
-      <SearchItem key={product?.id} product={product} />
-    ));
-  } else {
-    content = <div>Loading...</div>;
-  }
+  let content = null;
+  // if (products?.length === 0) {
+  //   content = <div>No products found</div>;
+  // } else if (products?.length > 0) {
+  //   content = products?.map((product) => (
+  //     <SearchItem key={product?.id} product={product} />
+  //   ));
+  // } else {
+  //   content = <div>Loading...</div>;
+  // }
 
   useEffect(() => {
     setSearchTerm('');
