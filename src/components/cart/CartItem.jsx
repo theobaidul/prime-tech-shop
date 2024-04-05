@@ -2,12 +2,14 @@ import {
   removeFromCart,
   updateProductQuantity,
 } from '@/redux/features/cart/cartSlice';
+import discountPrice from '@/utils/discountPrice';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import AmountButtons from './AmountButtons';
 
 export default function CartItem({ product }) {
-  const { id, title, price, thumbnail, quantity, stock } = product || {};
+  const { id, title, price, discountPercentage, thumbnail, quantity, stock } =
+    product || {};
   const dispatch = useDispatch();
 
   const handleIncrement = () => {
@@ -28,7 +30,7 @@ export default function CartItem({ product }) {
       <div className="w-full md:w-1/3">
         <h2 className="mb-3 text-lg font-medium xl:text-xl">{title}</h2>
         <p className="font-semibold">
-          BDT {price} x {quantity}
+          ${discountPrice(price, discountPercentage)} x {quantity}
         </p>
       </div>
       <AmountButtons
@@ -38,7 +40,9 @@ export default function CartItem({ product }) {
         onDecrement={handleDecrement}
       />
       <div className="ml-auto md:ml-0">
-        <p className="text-lg font-semibold">BDT {quantity * price}</p>
+        <p className="text-lg font-semibold">
+          BDT {quantity * discountPrice(price, discountPercentage)}
+        </p>
       </div>
       <div className="text-lg text-red-400 hover:text-red-600">
         <button onClick={handleRemove}>

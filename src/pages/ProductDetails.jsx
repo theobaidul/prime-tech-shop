@@ -3,6 +3,7 @@ import Alert from '@/components/global/Alert';
 import SingleProductLoader from '@/components/ui/SingleProductLoader';
 import { addToCart } from '@/redux/features/cart/cartSlice';
 import { useGetProductQuery } from '@/redux/features/product/productApi';
+import discountPrice from '@/utils/discountPrice';
 import numberWithCommas from '@/utils/numberWithcommas';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +13,15 @@ export default function ProductDetails() {
   const cart = useSelector((state) => state.cart);
   const params = useParams();
   const { data, isError, error } = useGetProductQuery(params.id);
-  const { id, title, description, price, rating, thumbnail } = data || {};
+  const {
+    id,
+    title,
+    description,
+    price,
+    discountPercentage,
+    rating,
+    thumbnail,
+  } = data || {};
 
   const handleAddToCart = () => {
     const findedProduct = cart?.find((item) => item?.id === id);
@@ -71,7 +80,9 @@ export default function ProductDetails() {
                 <p className="mb-4 leading-relaxed">{description}</p>
                 <div className="space-y-4">
                   <span className="text-2xl font-medium text-gray-900">
-                    BDT {numberWithCommas(price)}
+                    <span className="text-gray-400 line-through">${price}</span>{' '}
+                    $
+                    {numberWithCommas(discountPrice(price, discountPercentage))}
                   </span>
                   <div className="flex space-x-4">
                     <button className="btn" onClick={handleAddToCart}>

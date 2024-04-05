@@ -1,8 +1,10 @@
+import discountPrice from '@/utils/discountPrice';
 import { Link } from 'react-router-dom';
 import Stars from '../common/Stars';
 
 export default function SearchItem({ product }) {
-  const { id, title, price, rating, thumbnail } = product || {};
+  const { id, title, price, discountPercentage, rating, thumbnail } =
+    product || {};
 
   return (
     <Link to={`/products/${id}`}>
@@ -14,7 +16,9 @@ export default function SearchItem({ product }) {
         />
         <div className="flex flex-col">
           <p className="font-bold">{title}</p>
-          <p className="text-xs text-gray-500">{price}</p>
+          <p className="text-xs text-gray-500">
+            {discountPrice(price, discountPercentage)}
+          </p>
           <Stars rating={rating} />
         </div>
       </div>

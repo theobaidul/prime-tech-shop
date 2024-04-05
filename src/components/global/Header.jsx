@@ -15,7 +15,7 @@ export default function Header() {
   const toggleDrawer = () => setIsOpen(!isOpen);
 
   return (
-    <header className="bg-white py-4 shadow-sm">
+    <header className="sticky top-0 !z-[999] bg-white py-4 shadow-sm">
       <div className="container flex items-center justify-between gap-10">
         <Link to="/" className="block w-32">
           <img src={logo} alt="logo" className="w-full" />

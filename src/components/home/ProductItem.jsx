@@ -1,10 +1,12 @@
 import { addToCart } from '@/redux/features/cart/cartSlice';
+import discountPrice from '@/utils/discountPrice';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Stars from '../common/Stars';
 export default function ProductItem({ product }) {
-  const { id, title, price, rating, thumbnail } = product || {};
+  const { id, title, price, discountPercentage, rating, thumbnail } =
+    product || {};
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
@@ -54,7 +56,10 @@ export default function ProductItem({ product }) {
           <Stars rating={rating} />
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-base font-medium">BDT {price}</span>
+          <span className="text-base font-medium">
+            <span className="text-gray-400 line-through">${price}</span> $
+            {discountPrice(price, discountPercentage)}
+          </span>
           <button
             type="button"
             className="flex  items-center rounded-md   bg-primary px-5 py-2.5 text-center text-sm font-medium capitalize text-white transition-all"

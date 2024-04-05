@@ -11,9 +11,7 @@ export default function ProductList() {
   const [page, setPage] = useState(Number(searchParams?.get('page')) || 1);
   const [limit, setLimit] = useState(Number(searchParams?.get('limit')) || 12);
   const query = `skip=${page * limit - limit}&limit=${limit}`;
-  const { data, isError, error } = useGetProductsQuery(query, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isError, error } = useGetProductsQuery();
   const { products, total } = data || {};
 
   const handleLimitChange = (limitValue) => {

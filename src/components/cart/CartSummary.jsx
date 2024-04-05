@@ -1,10 +1,13 @@
+import discountPrice from '@/utils/discountPrice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function CartSummary() {
   const cart = useSelector((state) => state.cart);
   const totalPrice = cart?.reduce(
-    (total, item) => total + item?.price * item?.quantity,
+    (total, item) =>
+      total +
+      discountPrice(item?.price, item?.discountPercentage) * item?.quantity,
     0
   );
 

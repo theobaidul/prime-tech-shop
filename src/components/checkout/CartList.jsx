@@ -1,3 +1,4 @@
+import discountPrice from '@/utils/discountPrice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +40,14 @@ export default function CartList() {
         </div>
         <div className="space-y-5 rounded bg-white p-4 shadow-sm">
           {cartItems.map((item) => {
-            const { id, title, thumbnail, quantity, price } = item;
+            const {
+              id,
+              title,
+              thumbnail,
+              quantity,
+              price,
+              discountPercentage,
+            } = item;
             return (
               <div
                 key={id}
@@ -53,12 +61,12 @@ export default function CartList() {
                     {title}
                   </h2>
                   <p className="font-semibold">
-                    BDT {price} x {quantity}
+                    ${discountPrice(price, discountPercentage)} x {quantity}
                   </p>
                 </div>
                 <div className="ml-auto md:ml-0">
                   <p className="text-lg font-semibold">
-                    BDT {price * quantity}
+                    ${discountPrice(price, discountPercentage) * quantity}
                   </p>
                 </div>
               </div>
