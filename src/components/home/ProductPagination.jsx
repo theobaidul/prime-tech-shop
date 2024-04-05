@@ -1,15 +1,14 @@
 import { storeFilterPage } from '@/redux/features/filter/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function ProductPagination() {
+export default function ProductPagination({ count }) {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state?.data?.products);
   const { page: filterPage, limit: filterLimit } = useSelector(
     (state) => state?.filter
   );
 
   const totalPage = Array.from(
-    { length: Math.ceil(products?.length / filterLimit) },
+    { length: Math.ceil(count / filterLimit) },
     (_, i) => ({ id: i + 1 })
   );
 
@@ -37,7 +36,7 @@ export default function ProductPagination() {
         <button
           key={id}
           type="button"
-          className="btn border border-black bg-transparent px-2 py-1 text-black"
+          className={`btn border border-black bg-transparent px-2 py-1 text-black ${filterPage === id ? 'bg-black text-white' : ''}`}
           onClick={() => handlePage(id)}
         >
           {id}

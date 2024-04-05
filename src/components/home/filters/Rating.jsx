@@ -1,5 +1,8 @@
 import Stars from '@/components/common/Stars';
-import { storeFilterRatings } from '@/redux/features/filter/filterSlice';
+import {
+  storeFilterPage,
+  storeFilterRatings,
+} from '@/redux/features/filter/filterSlice';
 import { useDispatch } from 'react-redux';
 
 export default function Rating() {
@@ -7,6 +10,7 @@ export default function Rating() {
 
   const handleRatingFilter = (value) => {
     dispatch(storeFilterRatings(value));
+    dispatch(storeFilterPage(1));
   };
 
   return (

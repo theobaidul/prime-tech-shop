@@ -1,6 +1,7 @@
 import {
   storeFilterMaxPrice,
   storeFilterMinPrice,
+  storeFilterPage,
 } from '@/redux/features/filter/filterSlice';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
@@ -23,6 +24,7 @@ export default function Price() {
         onInput={(currentValue) => {
           dispatch(storeFilterMinPrice(currentValue[0]));
           dispatch(storeFilterMaxPrice(currentValue[1]));
+          dispatch(storeFilterPage(1));
         }}
       />
       <p>

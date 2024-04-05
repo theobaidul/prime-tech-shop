@@ -48,7 +48,7 @@ export default function ProductItem({ product }) {
       </Link>
       <div className="px-5 pb-5">
         <a href="/products/id">
-          <h5 className="mb-2 text-base font-medium tracking-tight transition hover:text-primary">
+          <h5 className="mb-2 text-base font-medium tracking-tight transition">
             {title}
           </h5>
         </a>
@@ -62,7 +62,7 @@ export default function ProductItem({ product }) {
           </span>
           <button
             type="button"
-            className="flex  items-center rounded-md   bg-primary px-5 py-2.5 text-center text-sm font-medium capitalize text-white transition-all"
+            className="btn flex items-center rounded-md px-5 py-2.5 text-center text-sm font-medium capitalize text-white transition-all"
             onClick={handleAddToCart}
           >
             Add to cart

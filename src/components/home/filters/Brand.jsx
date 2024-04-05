@@ -1,4 +1,7 @@
-import { storeFilterBrands } from '@/redux/features/filter/filterSlice';
+import {
+  storeFilterBrands,
+  storeFilterPage,
+} from '@/redux/features/filter/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Brand() {
@@ -7,6 +10,7 @@ export default function Brand() {
 
   const handleCategoryFilter = (value) => {
     dispatch(storeFilterBrands(value));
+    dispatch(storeFilterPage(1));
   };
 
   let content;

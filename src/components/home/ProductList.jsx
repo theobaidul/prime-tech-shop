@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import ProductListLoader from '../ui/ProductListLoader';
 import ProductItem from './ProductItem';
 import ProductPagination from './ProductPagination';
+import ProductPerPage from './ProductPerPage';
 
 export default function ProductList() {
   const allProducts = useSelector((state) => state?.data?.products);
   const filter = useSelector((state) => state?.filter);
   const { page, limit } = filter || {};
 
-  const products = getFilteredProducts(allProducts, filter);
+  const { count, products } = getFilteredProducts(allProducts, filter);
 
   let content;
   if (products?.length === 0) {
@@ -35,7 +36,8 @@ export default function ProductList() {
       </p>
       {content}
       <div className="flex items-center justify-end gap-6">
-        <ProductPagination />
+        <ProductPerPage limit={limit} />
+        <ProductPagination count={count} />
       </div>
     </div>
   );
