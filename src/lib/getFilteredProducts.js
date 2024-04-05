@@ -17,14 +17,27 @@ export default function getFilteredProducts(products, filters) {
     }
     return matched;
   };
+  const filterByCategory = (product) => {
+    return categories?.includes(product?.category);
+  };
+  const filterByBrand = (product) => {
+    return brands?.includes(product?.brand);
+  };
 
   let filteredProducts = products;
 
-  filteredProducts = filteredProducts?.filter(filterByMinPrice);
-  filteredProducts = filteredProducts?.filter(filterByMaxPrice);
+  filteredProducts = filteredProducts
+    ?.filter(filterByMinPrice)
+    ?.filter(filterByMaxPrice);
 
   if (ratings?.length > 0) {
     filteredProducts = filteredProducts?.filter(filterByRating);
+  }
+  if (categories?.length > 0) {
+    filteredProducts = filteredProducts?.filter(filterByCategory);
+  }
+  if (brands?.length > 0) {
+    filteredProducts = filteredProducts?.filter(filterByBrand);
   }
 
   return filteredProducts?.slice((page - 1) * limit, page * limit);

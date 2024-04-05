@@ -21,10 +21,24 @@ const filterSlice = createSlice({
       state.limit = action.payload;
     },
     storeFilterCategories(state, action) {
-      state.categories = action.payload;
+      let categories = state?.categories;
+      if (state.categories.includes(action.payload)) {
+        categories = state?.categories?.filter(
+          (category) => category !== action.payload
+        );
+      } else {
+        categories = [...state.categories, action.payload];
+      }
+      state.categories = categories;
     },
     storeFilterBrands(state, action) {
-      state.brands = action.payload;
+      let brands = state?.brands;
+      if (state.brands.includes(action.payload)) {
+        brands = state?.brands?.filter((brand) => brand !== action.payload);
+      } else {
+        brands = [...state.brands, action.payload];
+      }
+      state.brands = brands;
     },
     storeFilterRatings(state, action) {
       let ratings = state?.ratings;
